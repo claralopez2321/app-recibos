@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="../assets/img/favicon-18.png" type="image/png"> <!-- Agregar el favicon -->
+    <title>Recibo Nuevo</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../css/styles.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+</head>
+<body>
+
+    <!-- Botón Volver al Inicio -->
+    <div class="container mt-4">
+        <a href="index.html">
+            <button class="btn btn-danger mb-4 w-auto">Volver al inicio</button>
+        </a>
+    </div>
+    
+    <div class="container mt-5">
+        <img src="../assets/img/logo-03.png" alt="Descripción de la imagen" class="img-fluid w-50">
+        
+        <h1>Recibo nuevo</h1>
+        <div class="mb-3">
+            <label for="nombreRecibo" class="form-label">Nombre del Recibo:</label>
+            <input type="text" class="form-control" id="nombreRecibo" required>
+        </div>
+        <form id="reciboForm">
+            <div class="mb-3">
+                <label for="fechaRecibo" class="form-label">Fecha:</label>
+                <input type="text" class="form-control" id="fechaRecibo" required>
+            </div>
+            <div class="mb-3">
+                <label for="clienteRecibo" class="form-label">Cliente:</label>
+                <input type="text" class="form-control" id="clienteRecibo" required>
+            </div>
+            <div class="mb-3">
+                <label for="detalleRecibo" class="form-label">Detalle:</label>
+                <textarea class="form-control" id="detalleRecibo" rows="4" required></textarea>
+            </div>
+            <div class="mb-3">
+                <label for="totalRecibo" class="form-label">Total:</label>
+                <input type="text" class="form-control" id="totalRecibo" required>
+            </div>
+            <button type="button" class="btn btn-primary" id="generateRecibo">Guardar y generar Recibo</button>
+        </form>
+    </div>
+
+    <script>
+        document.getElementById("generateRecibo").addEventListener("click", function() {
+            const { jsPDF } = window.jspdf;  // Accedemos a la librería jsPDF
+
+            // Obtenemos los valores de los campos del formulario
+            const nombreRecibo = document.getElementById("nombreRecibo").value;
+            const fechaRecibo = document.getElementById("fechaRecibo").value;
+            const clienteRecibo = document.getElementById("clienteRecibo").value;
+            const detalleRecibo = document.getElementById("detalleRecibo").value;
+            const totalRecibo = document.getElementById("totalRecibo").value;
+
+            // Creamos una nueva instancia de jsPDF
+            const doc = new jsPDF();
+
+            // Agregar la imagen al PDF (antes de los campos)
+            const imgPath = '../assets/img/header-19.png'; // Ruta de la imagen
+            doc.addImage(imgPath, 'PNG', 10, 10, 180, 30); // Ajusta las coordenadas y tamaño según necesites
+
+            // Establecer la posición para el texto
+            let yPosition = 50; // Espacio después de la imagen
+
+            // Añadir el contenido al PDF
+            doc.setFont('helvetica', 'bold');
+            doc.setFontSize(16);
+            doc.text('Recibo: ' + nombreRecibo, 10, yPosition);
+            yPosition += 10;
+            doc.setFontSize(12);
+            doc.text("Fecha: " + fechaRecibo, 10, yPosition);
+            yPosition += 10;
+            doc.text("Cliente: " + clienteRecibo, 10, yPosition);
+            yPosition += 10;
+            doc.text("Detalle: " + detalleRecibo, 10, yPosition);
+            yPosition += 10;
+            doc.text("Total: " + totalRecibo, 10, yPosition);
+
+            // Añadir la imagen al pie de página (ajustar posición)
+            const footerImg = "../assets/img/footer-pdf-20.png"; // Ruta de la imagen en el pie
+            const footerYPosition = 250; // Ajustamos la posición del pie, se puede cambiar según sea necesario
+            doc.addImage(footerImg, 'PNG', 10, footerYPosition, 180, 30);  // Tamaño y posición de la imagen
+
+            // Generamos y descargamos el archivo PDF
+            doc.save(nombreRecibo + ".pdf");
+        });
+    </script>
+
+    <!-- Footer -->
+    <br><br><br><br><br>
+    <footer style="background-color: #f5f1f1; color: rgb(53, 50, 50); padding: 20px 0; text-align: center;">
+        <div class="container">
+            <img src="../assets/img/favicon-18.png" alt="Logo" style="max-width: 100px; margin-bottom: 10px;">
+            <p>&copy; Software creado para : San José - Servicios industriales</p>
+            <p><a href="https://www.mclr-webdesign.com/" target="_blank" style="color: rgb(230, 87, 87); text-decoration: none;">Diseñado por MCLR-WEBDESIGN</a></p>
+        </div>
+    </footer>
+</body>
+</html>

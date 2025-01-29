@@ -1,6 +1,10 @@
 body {
-    font-family:'Montserrat', sans-serif;
+    font-family: 'Montserrat', sans-serif;
     background-color: #e9e3e3;
+    background-image: url('../assets/img/backg-21.png'); /* Ruta de la imagen */
+    background-size: cover; /* Asegura que la imagen cubra todo el fondo */
+    background-position: center; /* Centra la imagen */
+    background-repeat: no-repeat; /* Evita que la imagen se repita */
     text-align: center;
 }
 
@@ -95,3 +99,17 @@ label {
 }
 
 
+/* Definir la animación */
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+/* Aplicar la animación a la imagen */
+#fadeImage {
+    animation: fadeIn 2s ease-in-out; /* Duración de 2 segundos y transición suave */
+}
